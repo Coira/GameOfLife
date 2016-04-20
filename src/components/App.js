@@ -6,8 +6,8 @@ class App extends React.Component {
     constructor(props) {
 	super(props);
 
-	const width = 100;
-	const height = 100;
+	const width = 10;
+	const height = 10;
 	
 	let cells = [];
 	for (var i = 0; i < width*height; i++) {
