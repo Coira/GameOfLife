@@ -1,11 +1,12 @@
 import {expect} from 'chai';
 import {createBoard, getNorthNeighbour,
 	getSouthNeighbour, getWestNeighbour,
-	getEastNeighbour} from '../src/game/board';
+	getEastNeighbour, getNeighbours} from '../src/game/board';
 import {getNorthWestNeighbour as getNW_Neighbour,
 	getSouthWestNeighbour as getSW_Neighbour,
 	getNorthEastNeighbour as getNE_Neighbour,
 	getSouthEastNeighbour as getSE_Neighbour} from '../src/game/board';
+
 
 describe('board logic', () => {
 
@@ -45,29 +46,31 @@ describe('board logic', () => {
 	const w = 4;
 	const h = 3;
 	const board = createBoard(w,h);
+	
+	/* cell layout of board width = 4, height = 3
+	   0  1  2   3
+	   4  5  6   7
+           8  9  10  11
+	   
+	   If we check the neighbours of cell 5 then we expect that:
+	   cell 1 is north of cell 5
+	   cell 9 is south of cell 5
+	   Etc
+	 */
+	
+	const neighbours = {"north": 1, "south": 9, "west": 4, "east":6,
+			    "nw": 0, "ne": 2, "sw": 8, "se": 10 }
+	const funcs = {"north":getNorthNeighbour, "south": getSouthNeighbour,
+		       "west":getWestNeighbour, "east": getEastNeighbour,
+		       "nw": getNW_Neighbour, "ne": getNE_Neighbour,
+		       "sw": getSW_Neighbour, "se": getSE_Neighbour}
+	
 	it ('gets the correct neighbours', () => {
 	    // chai-immutable equality sanity checks
 	    expect(board.get(1)).to.equal(board.get(1));
 	    expect(board.get(1)).to.not.equal(board.get(2));
 
-	    /* cell layout of board width = 4, height = 3
-	       0  1  2   3
-	       4  5  6   7
-               8  9  10  11
-	       
-	       If we check the neighbours of cell 5 then we expect that:
-	       cell 1 is north of cell 5
-	       cell 9 is south of cell 5
-	       Etc
-	     */
-	    
-	    const neighbours = {"north": 1, "south": 9, "west": 4, "east":6,
-				"nw": 0, "ne": 2, "sw": 8, "se": 10 }
-	    const funcs = {"north":getNorthNeighbour, "south": getSouthNeighbour,
-			   "west":getWestNeighbour, "east": getEastNeighbour,
-			   "nw": getNW_Neighbour, "ne": getNE_Neighbour,
-			   "sw": getSW_Neighbour, "se": getSE_Neighbour}
-
+	    // iterate through all the neighbour retrieval functions
 	    Object.keys(funcs).map((direction) => {
 		const neighbour = board.get(neighbours[direction]);
 		const getNeighbour = funcs[direction];
@@ -75,8 +78,25 @@ describe('board logic', () => {
 		expect(getNeighbour(board, board.get(5), w)).to.equal(neighbour);
 	    });
 	});
-    });
 
-    describe('out of bounds neighbours', () => {
+	it ('gets all neighbours', () => {
+	    expect(getNeighbours(board, 5, w).size).to.equal(8);
+	});
+	
+	it ('wraps around the board if cell retrieval is out of bounds', () => {
+	    
+	    let result = getNeighbours(board, 0, w);
+	    let positions = result.map((value) => (value.get("pos")));
+	    expect(positions).to.include(1,4,5,11,8,9,3,7);
+
+	    result = getNeighbours(board, 11, w);
+	    positions = result.map((value) => (value.get("pos")));
+	    
+	    expect(positions).to.include(6,7,4,10,5,2,3,0);
+	    	    
+	});
+	    
+
+	    	
     });
 });

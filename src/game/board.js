@@ -13,7 +13,10 @@ export function createBoard(width, height, alive = []) {
 	    board[i].alive = true;
 	}
     });
-    return fromJS(board);
+
+    let immutableBoard = fromJS(board);
+    immutableBoard.setSize(boardSize);
+    return fromJS(immutableBoard);
 }
 
 function position(cell) {
@@ -30,7 +33,7 @@ export function getNorthNeighbour(board, cell, width) {
 }
 
 export function getSouthNeighbour(board, cell, width) {
-    return board.get(position(cell)+width);
+    return board.get((position(cell)+width) % board.size);
 }
 
 
@@ -39,7 +42,7 @@ export function getWestNeighbour(board, cell) {
 }
 
 export function getEastNeighbour(board, cell) {
-    return board.get(position(cell)+1);
+    return board.get((position(cell)+1) % board.size);
 }
 
 export function getNorthWestNeighbour(board, cell, width) {
@@ -47,19 +50,27 @@ export function getNorthWestNeighbour(board, cell, width) {
 }
 
 export function getNorthEastNeighbour(board, cell, width) {
-    return board.get(position(cell)-width+1);
+    return board.get((position(cell)-width+1) % board.size);
 }
 
 export function getSouthWestNeighbour(board, cell, width) {
-    return board.get(position(cell)+width-1);
+    return board.get((position(cell)+width-1) % board.size);
 }
 
 export function getSouthEastNeighbour(board, cell, width) {
-    return board.get(position(cell)+width+1);
+    return board.get((position(cell)+width+1) % board.size);
 }
 
 export function getNeighbours(board, cell, width) {
-    return board.get(position(cell)-width);
+    
+    return List.of(getNorthNeighbour(board, cell, width),
+		  getSouthNeighbour(board, cell, width),
+		  getWestNeighbour(board, cell),
+		  getEastNeighbour(board, cell),
+		  getNorthWestNeighbour(board, cell, width),
+		  getNorthEastNeighbour(board, cell, width),
+		  getSouthWestNeighbour(board, cell, width),
+		  getSouthEastNeighbour(board, cell, width));
 }
 
 
