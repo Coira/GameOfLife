@@ -16,8 +16,13 @@ export function createBoard(width, height, alive = []) {
 
     let immutableBoard = fromJS(board);
     immutableBoard.setSize(boardSize);
-    return fromJS(immutableBoard);
+    
+    return immutableBoard;
 }
+
+export function updateBoard(board, liveCells = []) {
+}
+
 
 function position(cell) {
     if (typeof cell === "object") {
@@ -37,36 +42,47 @@ export function getSouthNeighbour(board, cell, width) {
 }
 
 
-export function getWestNeighbour(board, cell) {
-    return board.get(position(cell)-1);
+export function getWestNeighbour(board, cell, width) {
+    const i = position(cell);
+    // i.e `p = i - (i % w) + (i-1) % w`, if js dealt with negative modulo
+    // in the traditional way
+    const p = i - (i % width) + (((i-1) % width) + width) % width;
+    return board.get(p);
 }
 
-export function getEastNeighbour(board, cell) {
-    return board.get((position(cell)+1) % board.size);
+export function getEastNeighbour(board, cell, width) {
+    const i = position(cell);
+    const p = i - (i % width) + (i+1) % width;
+    return board.get(p);
+    
 }
 
 export function getNorthWestNeighbour(board, cell, width) {
-    return board.get(position(cell)-width-1);
+    const north = getNorthNeighbour(board, cell, width);
+    return getWestNeighbour(board, north, width);
 }
 
 export function getNorthEastNeighbour(board, cell, width) {
-    return board.get((position(cell)-width+1) % board.size);
+    const north = getNorthNeighbour(board, cell, width);
+    return getEastNeighbour(board, north, width);
 }
 
 export function getSouthWestNeighbour(board, cell, width) {
-    return board.get((position(cell)+width-1) % board.size);
+    const south = getSouthNeighbour(board, cell, width);
+    return getWestNeighbour(board, south, width);
 }
 
 export function getSouthEastNeighbour(board, cell, width) {
-    return board.get((position(cell)+width+1) % board.size);
+    const south = getSouthNeighbour(board, cell, width);
+    return getEastNeighbour(board, south, width);
 }
 
 export function getNeighbours(board, cell, width) {
     
     return List.of(getNorthNeighbour(board, cell, width),
 		  getSouthNeighbour(board, cell, width),
-		  getWestNeighbour(board, cell),
-		  getEastNeighbour(board, cell),
+		  getWestNeighbour(board, cell, width),
+		  getEastNeighbour(board, cell, width),
 		  getNorthWestNeighbour(board, cell, width),
 		  getNorthEastNeighbour(board, cell, width),
 		  getSouthWestNeighbour(board, cell, width),
