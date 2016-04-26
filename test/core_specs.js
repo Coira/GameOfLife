@@ -96,19 +96,31 @@ describe('game tick actions', () => {
 
      */
 
-    let glider = createBoard(6,6,[8,15,19,20,21,22]);
+    let glider = createBoard(6,6,[8,15,19,20,21]);
+    const expectedBoardStates = [glider,  //gen 0
+				 createBoard(6,6,[13,15,20,21,26]),  //gen 1
+				 createBoard(6,6,[15,19,21,26,27]),  //gen 2
+				 createBoard(6,6,[14,21,22,26,27]),  //gen 3
+				 createBoard(6,6,[15,22,26,27,28])]  //gen 4
+
+    let boards = [];
     
     it ('identifies all the living cells after a game tick', () => {
-	let boardStates = [];
+	boards = [{board: glider, generation: 0}];
 
+	for (var i = 0; i < 4; i++) {
+	    boards.push(tick(boards[i].board, 6, i));
+	}
+	
+	for (var i = 0; i < 5; i++) {
+	    expect(boards[i].board).to.equal(expectedBoardStates[i]);
+	}
     });
 
-    it ('keeps track of number of generations',  () => {
+    it ('keeps track of number of generations',  () => {	
+	expect(boards[1]).to.contain.key('generation');
+	expect(boards[2]['generation']).to.equal(boards[1]['generation'] + 1);
     });
-
-    it ('stops when all cells are dead', () => {
-    });
-    
 });
 
 

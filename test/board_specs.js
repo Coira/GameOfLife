@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {createBoard, getNorthNeighbour,
+import {createBoard, updateBoard, getNorthNeighbour,
 	getSouthNeighbour, getWestNeighbour,
 	getEastNeighbour, getNeighbours} from '../src/game/board';
 import {getNorthWestNeighbour as getNW_Neighbour,
@@ -125,6 +125,31 @@ describe('board logic', () => {
 	    neighbours = {"north": 8, "south":4, "west":3, "east":1,
 			  "nw":11, "ne":9, "sw":7, "se":5}
 	    checkNeighbours(board4x3, 4, board4x3.get(0), neighbours);
+	});
+	
+    });
+
+    describe ('updates board', () => {
+	let board = createBoard(5,3);
+	const topAlive = createBoard(5,3,[0,1,2,3,4]);
+	const allButTopAlive = createBoard(5,3,[5,6,7,8,9,10,11,12,13,14]);
+	let newBoard = [];
+	
+	it ('toggles dead cells to alive cells', () => {
+	    // resurrect the top row
+	    newBoard = updateBoard(board, [0,1,2,3,4]);
+	    expect(newBoard).to.equal(topAlive);			    
+	});
+
+	it ("doesn't modify the original board", () => {
+	    expect(board).to.not.equal(newBoard);
+	});
+
+	it ('toggles live cells to dead cells', () => {
+	    // toggle all alive to dead, and vise versa
+	    newBoard = updateBoard(newBoard, [0,1,2,3,4,5,6,7,8,9,
+					      10,11,12,13,14]);
+	    expect(newBoard).to.equal(allButTopAlive);
 	});
 	
     });

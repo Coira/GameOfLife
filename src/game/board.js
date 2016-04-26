@@ -20,7 +20,13 @@ export function createBoard(width, height, alive = []) {
     return immutableBoard;
 }
 
-export function updateBoard(board, liveCells = []) {
+// toggles a changed cell from dead to alive or vise versa
+export function updateBoard(board, changedCells = [], agedCells = []) {
+    changedCells.forEach((position) => {
+	board = board.updateIn([position, "alive"],
+			       (state) => (!state));
+    });
+    return board;
 }
 
 
