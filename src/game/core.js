@@ -23,6 +23,7 @@ export function applyRules(cell, neighbours) {
 
 
 export function tick(board, width, generation=0) {
+
     let changeCells = [];
     for (var i = 0; i < board.size; i++) {
 	let cell = board.get(i);

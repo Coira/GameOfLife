@@ -1,53 +1,34 @@
 import React from 'react';
-import Board from './Board';
+import Board from './BoardContainer';
 import Controls from './Controls';
 
 class App extends React.Component {
     constructor(props) {
-	super(props);
-
-	const width = 10;
-	const height = 10;
-	
-	let cells = [];
-	for (var i = 0; i < width*height; i++) {
-	    cells.push(false);
-	}
-
-	for (var i = 0; i < width*height; i+=500) {
-	    cells[i] = true;
-
-	}
-
-	this.state = {
-	    width,
-	    height,
-	    cells
-	}
-	
-	    
+	super(props);	    
     }
 
     startFtn() {
-	console.log("start clicked");
+	console.log('start');
     }
 
     stopFtn() {
-	console.log("stop clicked");
+	console.log('stop');
     }
+    
 
     render() {
 	return (
 	    <div>
-		App
-		<Controls startFtn={this.startFtn.bind(this)}
+		<Controls startFtn={this.props.onStart}
 			  stopFtn={this.stopFtn.bind(this)}/>
-		<Board width={this.state.width}
-		       height={this.state.height}
-		       cells={this.state.cells}/>
+		
+		<Board width={this.props.width}
+		       height={this.props.height}
+		       board={this.props.board}/>
 	    </div>
 	)
     }
 }
 
 export default App;
+
