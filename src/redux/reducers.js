@@ -19,7 +19,8 @@ export default function reducer(state = Map(), action) {
 		map.set('board', nextState.board)
 		   .set('generation',nextState.generation)
 	    });
-
+	case 'START_GAME':
+	    return state;
 	default:
 	    return state;
     }

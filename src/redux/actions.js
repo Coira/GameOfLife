@@ -13,3 +13,10 @@ export function tickAction() {
     }
 }
 
+export function startGameAction() {
+    return {
+	type: "START_GAME"
+    }
+}
+
+

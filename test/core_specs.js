@@ -95,6 +95,7 @@ describe('game tick actions', () => {
        5 0 0 0 0 0 0  
 
      */
+    
 
     let glider = createBoard(6,6,[8,15,19,20,21]);
     const expectedBoardStates = [glider,  //gen 0

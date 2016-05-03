@@ -17,8 +17,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+	onNewBoard: () => {
+	    dispatch(createBoardAction(6,6,[8,15,19,20,21]));
+	},
 	onStart: () => {
-	    dispatch(createBoardAction(3,3,[0]));
+	    dispatch(startGameAction())
 	},
 	onTick: () => {
 	    dispatch(tickAction());
