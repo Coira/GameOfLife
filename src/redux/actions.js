@@ -13,10 +13,26 @@ export function tickAction() {
     }
 }
 
-export function startGameAction() {
+export function startAction() {
     return {
-	type: "START_GAME"
+	type: "START"
     }
 }
+
+export function stopAction() {
+    return {
+	type: "STOP"
+    }
+}
+
+export function toggleCellStatusAction(cell) {
+    return {
+	type: "TOGGLE_CELL_STATUS",
+	cell
+    }
+}
+
+	
+	   
 
 

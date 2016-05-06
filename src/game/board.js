@@ -22,8 +22,9 @@ export function createBoard(width, height, alive = []) {
 
 // toggles a changed cell from dead to alive or vise versa
 export function updateBoard(board, changedCells = [], agedCells = []) {
-    changedCells.forEach((position) => {
-	board = board.updateIn([position, "alive"],
+    changedCells.forEach((cell) => {
+	//const pos = position(cell);
+	board = board.updateIn([cell, "alive"],
 			       (state) => (!state));
     });
     return board;

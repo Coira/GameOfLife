@@ -5,24 +5,34 @@ import Controls from './Controls';
 class App extends React.Component {
     constructor(props) {
 	super(props);
-	this.timer = null;
+	this.timer = null;	
     }
 
     startFtn() {
-	console.log('start');
-	if (!this.timer) {
+	if (!this.props.running) {
+	    this.props.onStart();
 	    this.tick();
 	}
     }
 
     stopFtn() {
+	this.props.onStop();
 	clearTimeout(this.timer);
     }
 
+    cellClickFtn(cell) {
+	if (!this.props.running) {
+	    this.props.onCellClick(cell);
+	}
+	
+    }
+ 
     tick() {
 	this.timer = setTimeout(function() {
-	    this.props.onTick();
-	    window.requestAnimationFrame(this.tick.bind(this));
+	    if (this.props.running) {
+		this.props.onTick();
+		requestAnimationFrame(this.tick.bind(this));
+	    }
 	}.bind(this), 100);
     }
 
@@ -35,7 +45,8 @@ class App extends React.Component {
 		
 		<Board width={this.props.width}
 		       height={this.props.height}
-		       board={this.props.board}/>
+		       board={this.props.board}
+		       cellClickFtn={this.cellClickFtn.bind(this)}/>
 	    </div>
 	)
     }

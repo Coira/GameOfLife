@@ -1,4 +1,4 @@
-import {createBoard, updateBoard, getNeighbours} from '../game/board';
+import {updateBoard, getNeighbours} from '../game/board';
 
 export function countLive(cells) {
     return cells.count((cell) => (cell.get("alive") === true));

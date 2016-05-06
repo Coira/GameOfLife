@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import { connect, Provider } from 'react-redux';
 import store from './redux/store';
 import App from './components/App';
-import {createBoardAction, tickAction} from './redux/actions';
+import {createBoardAction, tickAction,
+	startAction, stopAction,
+	toggleCellStatusAction} from './redux/actions';
 import './style.scss';
 
 const mapStateToProps = (state) => {
@@ -11,7 +13,9 @@ const mapStateToProps = (state) => {
 	board: state.get("board"),
 	width: state.get("width"),
 	height: state.get("height"),
-	generation: state.get("generation")
+	generation: state.get("generation"),
+	running: state.get("running")
+	    
     }
 }
 
@@ -21,10 +25,16 @@ const mapDispatchToProps = (dispatch) => {
 	    dispatch(createBoardAction(6,6,[8,15,19,20,21]));
 	},
 	onStart: () => {
-	    dispatch(startGameAction())
+	    dispatch(startAction());
+	},
+	onStop: () => {
+	    dispatch(stopAction());
 	},
 	onTick: () => {
 	    dispatch(tickAction());
+	},
+	onCellClick: (cell) => {
+	    dispatch(toggleCellStatusAction(cell));
 	}
     }
 }

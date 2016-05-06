@@ -6,17 +6,19 @@ class Board extends React.Component {
 	super(props);
     }
 
-    renderRow(row,i) {
+    renderRow(row,i) {	
 	return (
 	    <tr key={"tr" + i*this.props.width}>
 		{
-		    row.map((cell, j) => (
-			<td key={i*this.props.width+j}>
+		    row.map((cell, j) => {
+			console.log(i*this.props.width+j);
+			return (<td key={i*this.props.width+j}>
 			    <Cell
 				id={cell.get("pos")}
-				status={cell.get("alive")} />
-			</td>)
-		    )
+				status={cell.get("alive")}
+				cellClickFtn={this.props.cellClickFtn} />
+			</td>);
+		    })
 		}
 	    </tr>
 	)
@@ -28,10 +30,10 @@ class Board extends React.Component {
 	const width = this.props.width;
 	const board = this.props.board;
 
-	for (let i = 0; i < this.props.height; i++) {
+	for (let i = 0; i < parseInt(this.props.height); i++) {
 	    rows.push(board.slice(i*width, i*width+width));
 	}
-				  
+
 	return (
 	    <div className="board">
 		<table>
