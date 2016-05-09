@@ -1,52 +1,33 @@
 import React from 'react';
 import Cell from './cell';
 
+const boardDefault = [];
+
 class Board extends React.Component {
+    
     constructor(props) {
 	super(props);
     }
 
-    renderRow(row,i) {	
-	return (
-	    <tr key={"tr" + i*this.props.width}>
-		{
-		    row.map((cell, j) => {
-			console.log(i*this.props.width+j);
-			return (<td key={i*this.props.width+j}>
-			    <Cell
-				id={cell.get("pos")}
-				status={cell.get("alive")}
-				cellClickFtn={this.props.cellClickFtn} />
-			</td>);
-		    })
-		}
-	    </tr>
-	)
-	    
-    }
-    
     render() {
-	let rows = [];
-	const width = this.props.width;
-	const board = this.props.board;
-
-	for (let i = 0; i < parseInt(this.props.height); i++) {
-	    rows.push(board.slice(i*width, i*width+width));
-	}
+	const board = this.props.board || boardDefault;
 
 	return (
 	    <div className="board">
-		<table>
-		    <tbody>
-			{
-			    rows.map((row, i) => (this.renderRow(row, i)))
-			}
-		    </tbody>
-		</table>
+		{
+		    board.map((cell, i) => (
+			<Cell className="cell"
+			      key={i}
+			      id = {i}
+			      cell={cell}
+			      cellClickFtn={this.props.cellClickFtn}/>
+		    ))
+		}
 	    </div>
 	)
+	    
+	    
     }
-
 }
 
 /*
@@ -56,6 +37,5 @@ Board.propTypes = {
     cells: React.PropTypes.array.isRequired
 }
 */
-
 export default Board;
 

@@ -1,16 +1,35 @@
 import {List, fromJS} from 'immutable';
 
-export function createBoard(width, height, alive = []) {
+let cells = {};
+
+export const DEAD = 0;
+export const ALIVE = 1;
+export const AGED = 2;
+
+export function createBoard(width, height, alive = [], random=false) {
     const boardSize = width*height;
-    let board = [];
+
+    cells = {};
     
+    let board = [];
     for (let i = 0; i < boardSize; i++) {
-	board.push({alive: false, pos:i});
+	//board.push({alive: false, pos:i});
+	board.push(DEAD)
+    }
+    
+    if (random) {
+	alive = [];
+	for (let i = 0; i < boardSize; i++) {
+	    if (Math.random() >= 0.5) {
+		alive.push(i);
+	    }
+	}
     }
 
     alive.forEach((i) => {
 	if (i >= 0 && i < boardSize) {
-	    board[i].alive = true;
+	    //board[i].alive = true;
+	    board[i] = ALIVE;
 	}
     });
 
@@ -20,80 +39,86 @@ export function createBoard(width, height, alive = []) {
     return immutableBoard;
 }
 
+function cycle(state) {
+    switch(state) {
+	case DEAD: return ALIVE;
+	case ALIVE: return DEAD;
+	case AGED: return DEAD;
+    }
+}
+
 // toggles a changed cell from dead to alive or vise versa
 export function updateBoard(board, changedCells = [], agedCells = []) {
-    changedCells.forEach((cell) => {
-	//const pos = position(cell);
-	board = board.updateIn([cell, "alive"],
-			       (state) => (!state));
+
+    changedCells.forEach((cellPos) => {
+	board = board.set(cellPos, cycle(board.get(cellPos)));
     });
+
     return board;
-}
-
-
-function position(cell) {
-    if (typeof cell === "object") {
-	return cell.get("pos");
-    }
-    else {
-	return cell;
-    }
-}
-
-export function getNorthNeighbour(board, cell, width) {
-    return board.get(position(cell)-width);
-}
-
-export function getSouthNeighbour(board, cell, width) {
-    return board.get((position(cell)+width) % board.size);
-}
-
-
-export function getWestNeighbour(board, cell, width) {
-    const i = position(cell);
-    // i.e `p = i - (i % w) + (i-1) % w`, if js dealt with negative modulo
-    // in the traditional way
-    const p = i - (i % width) + (((i-1) % width) + width) % width;
-    return board.get(p);
-}
-
-export function getEastNeighbour(board, cell, width) {
-    const i = position(cell);
-    const p = i - (i % width) + (i+1) % width;
-    return board.get(p);
     
 }
 
-export function getNorthWestNeighbour(board, cell, width) {
-    const north = getNorthNeighbour(board, cell, width);
+export function getNorthNeighbour(board, cellPos, width) {
+    return (((cellPos-width) % board.size) + board.size) % board.size;
+}
+
+export function getSouthNeighbour(board, cellPos, width) {
+    return (cellPos+width) % board.size;
+}
+
+
+export function getWestNeighbour(board, cellPos, width) {
+    const i = cellPos;
+    // i.e `p = i - (i % w) + (i-1) % w`, if js dealt with negative modulo
+    // in the traditional way
+    return i - (i % width) + (((i-1) % width) + width) % width;
+}
+
+export function getEastNeighbour(board, cellPos, width) {
+    const i = cellPos;
+    return i - (i % width) + (i+1) % width;    
+}
+
+export function getNorthWestNeighbour(board, cellPos, width) {
+    const north = getNorthNeighbour(board, cellPos, width);
     return getWestNeighbour(board, north, width);
 }
 
-export function getNorthEastNeighbour(board, cell, width) {
-    const north = getNorthNeighbour(board, cell, width);
+export function getNorthEastNeighbour(board, cellPos, width) {
+    const north = getNorthNeighbour(board, cellPos, width);
     return getEastNeighbour(board, north, width);
 }
 
-export function getSouthWestNeighbour(board, cell, width) {
-    const south = getSouthNeighbour(board, cell, width);
+export function getSouthWestNeighbour(board, cellPos, width) {
+    const south = getSouthNeighbour(board, cellPos, width);
     return getWestNeighbour(board, south, width);
 }
 
-export function getSouthEastNeighbour(board, cell, width) {
-    const south = getSouthNeighbour(board, cell, width);
+export function getSouthEastNeighbour(board, cellPos, width) {
+    const south = getSouthNeighbour(board, cellPos, width);
     return getEastNeighbour(board, south, width);
 }
 
-export function getNeighbours(board, cell, width) {
-    
-    return List.of(getNorthNeighbour(board, cell, width),
-		  getSouthNeighbour(board, cell, width),
-		  getWestNeighbour(board, cell, width),
-		  getEastNeighbour(board, cell, width),
-		  getNorthWestNeighbour(board, cell, width),
-		  getNorthEastNeighbour(board, cell, width),
-		  getSouthWestNeighbour(board, cell, width),
-		  getSouthEastNeighbour(board, cell, width));
+export function getNeighbours(board, cellPos, width) {
+
+    const pos = cellPos;
+    let neighbours = [];
+
+    // quick and dirty memoization
+    if (!cells[pos]) {
+	let neighbourPositions = [getNorthNeighbour(board, cellPos, width),
+				  getSouthNeighbour(board, cellPos, width),
+				  getWestNeighbour(board, cellPos, width),
+				  getEastNeighbour(board, cellPos, width),
+				  getNorthWestNeighbour(board, cellPos, width),
+				  getNorthEastNeighbour(board, cellPos, width),
+				  getSouthWestNeighbour(board, cellPos, width),
+				  getSouthEastNeighbour(board, cellPos, width)];
+	cells[pos] = neighbourPositions;
+    }
+
+    neighbours = cells[pos];
+    return List(neighbours.map((cellPos) => (board.get(cellPos))));
 }
 
 

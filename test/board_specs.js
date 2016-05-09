@@ -1,4 +1,5 @@
 import {expect} from 'chai';
+import {ALIVE, DEAD, AGED} from '../src/game/board';
 import {createBoard, updateBoard, getNorthNeighbour,
 	getSouthNeighbour, getWestNeighbour,
 	getEastNeighbour, getNeighbours} from '../src/game/board';
@@ -21,23 +22,24 @@ describe('board logic', () => {
 	    expect(createBoard(3,-1)).to.have.size(0);
 	});
 	it ('sets cells as dead as default', () => {
-	    expect(createBoard(w,h).count(v => v.get("alive"))).to.equal(0);
+	    //expect(createBoard(w,h).count(v => v.get("alive"))).to.equal(0);
+	    expect(createBoard(w,h).count(v => v === DEAD)).to.equal(w*h);
 	});
 	it ('sets cells as alive correctly', () => {
 	    let board = createBoard(w,h,[1,2,3]);
-	    expect(board.count(v =>v.get("alive"))).to.equal(3);
+	    expect(board.count(v => (v === ALIVE))).to.equal(3);
 
 	    board = createBoard(w,h,[-1]);
-	    expect(board.count(v => v.get("alive"))).to.equal(0);
+	    expect(board.count(v => v === ALIVE)).to.equal(0);
 
 	    board = createBoard(w,h,[w*h]);
-	    expect(board.count(v => v.get("alive"))).to.equal(0);
+	    expect(board.count(v => v === ALIVE)).to.equal(0);
 
 	    board = createBoard(-3, 3, [1,2,3]);
-	    expect(board.count(v => v.get("alive"))).to.equal(0);
+	    expect(board.count(v => v === ALIVE)).to.equal(0);
 
 	    board = createBoard(2,0, [1,2,3]);
-	    expect(board.count(v => v.get("alive"))).to.equal(0);
+	    expect(board.count(v => v === ALIVE)).to.equal(0);
 	    
 	});
     });
@@ -63,15 +65,15 @@ describe('board logic', () => {
 		       "nw": getNW_Neighbour, "ne": getNE_Neighbour,
 		       "sw": getSW_Neighbour, "se": getSE_Neighbour}
 
-	function checkNeighbours(board, width, cell, neighbours) {
+	function checkNeighbours(board, width, cellPos, neighbours) {
 	    // iterate through all the neighbour retrieval functions
 	    Object.keys(funcs).map((direction) => {
-		const neighbour = board.get(neighbours[direction]);
+		const neighbour = neighbours[direction];
 		const getNeighbour = funcs[direction];
-		const position = cell.get("pos");
+		//const position = cell.get("pos");
 
-		expect(getNeighbour(board, cell, width)).to.equal(neighbour);
-		expect(getNeighbour(board, position, width)).to.equal(neighbour);
+		//expect(getNeighbour(board, cell, width)).to.equal(neighbour);
+		expect(getNeighbour(board, cellPos, width)).to.equal(neighbour);
 	    });
 	}
 	
@@ -82,18 +84,18 @@ describe('board logic', () => {
 	it ('gets the correct neighbours', () => {
 		
 	    // chai-immutable equality sanity checks
-	    expect(board4x3.get(1)).to.equal(board4x3.get(1));
-	    expect(board4x3.get(1)).to.not.equal(board4x3.get(2));
+	    //expect(board4x3.get(1)).to.equal(board4x3.get(1));
+	    //expect(board4x3.get(1)).to.not.equal(board4x3.get(2));
 	    
 	    // neighbours for cell 5 in board4x3
 	    let neighbours = {"north": 1, "south": 9, "west": 4, "east":6,
 			      "nw": 0, "ne": 2, "sw": 8, "se": 10 }
-	    checkNeighbours(board4x3, 4, board4x3.get(5), neighbours);
+	    checkNeighbours(board4x3, 4, 5, neighbours);
 
 	    // neighbours for cell 13 in board5x4
 	    neighbours = {"north":8, "south":18, "west":12, "east":14,
 			  "nw":7, "ne":9, "sw":17, "se":19}
-	    checkNeighbours(board5x4, 5, board5x4.get(13), neighbours);
+	    checkNeighbours(board5x4, 5, 13, neighbours);
 	    
 	});
 	
@@ -103,28 +105,27 @@ describe('board logic', () => {
 	    // neighbours for cell 0 in board5x4
 	    neighbours = {"north": 15, "south": 5, "west": 4, "east": 1,
 			  "nw": 19, "ne": 16, "sw": 9, "se": 6}
-	    //console.log(getNeighbours(board5x4, 0, 5));
-	    checkNeighbours(board5x4, 5, board5x4.get(0), neighbours);
+	    checkNeighbours(board5x4, 5, 0, neighbours);
 
 	    // neighbours for cell 4 in board5x4
 	    neighbours = {"north": 19, "south":9, "west":3, "east":0,
 			  "nw":18, "ne":15, "sw":8, "se":5}
-	    checkNeighbours(board5x4, 5, board5x4.get(4), neighbours);
+	    checkNeighbours(board5x4, 5, 4, neighbours);
 
 	    // neighbours for cell 15 in board5x4
 	    neighbours = {"north":10, "south":0, "west":19, "east":16,
 			  "nw":14, "ne":11, "sw":4, "se":1}
-	    checkNeighbours(board5x4, 5, board5x4.get(15), neighbours);
+	    checkNeighbours(board5x4, 5, 15, neighbours);
 
 	    // neighbours for cell 19 in board5x4
 	    neighbours = {"north": 14, "south":4, "west":18, "east":15,
 			  "nw":13, "ne":10, "sw":3, "se":0}
-	    checkNeighbours(board5x4, 5, board5x4.get(19), neighbours);
+	    checkNeighbours(board5x4, 5, 19, neighbours);
 	    
 	    // neighbours for cell 0 in board4x3
 	    neighbours = {"north": 8, "south":4, "west":3, "east":1,
 			  "nw":11, "ne":9, "sw":7, "se":5}
-	    checkNeighbours(board4x3, 4, board4x3.get(0), neighbours);
+	    checkNeighbours(board4x3, 4, 0, neighbours);
 	});
 	
     });
