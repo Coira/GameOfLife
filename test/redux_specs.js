@@ -1,19 +1,19 @@
 import {expect} from 'chai';
-import {Map, fromJS} from 'immutable';
+import {List, Map, fromJS} from 'immutable';
 import reducer from '../src/redux/reducers';
-import {createBoard} from '../src/game/board';
+import {ALIVE, DEAD, createBoard} from '../src/game/board';
 
 describe('reducer', () => {
     it ('handles CREATE_BOARD', () => {
 	const initialState = Map();
 	const action = {type: 'CREATE_BOARD',
 			width: 3, height: 3,
-			liveCells: [0,2,4,6,8]}
+			liveCells: [0,2,4,6,8], random: false}
 	const nextState = reducer(initialState, action);
-	expect(nextState).to.equal(fromJS({
-	    board: [{pos:0, alive:true}, {pos:1, alive:false}, {pos:2, alive:true},
-		    {pos:3, alive:false}, {pos:4, alive:true}, {pos:5, alive:false},
-		    {pos:6, alive:true}, {pos:7, alive:false}, {pos:8, alive:true}],
+	expect(nextState).to.equal(Map({
+	    board: List([ALIVE, DEAD, ALIVE,
+			DEAD, ALIVE, DEAD,
+			ALIVE, DEAD, ALIVE]),
 	    width: 3, height: 3, generation: 0, running: false}));	
     });
     it ('handles TICK', () => {

@@ -1,9 +1,10 @@
-export function createBoardAction(width, height, liveCells) {
+export function createBoardAction(width, height, liveCells, random) {
     return {
 	type: "CREATE_BOARD",
 	width,
 	height,
-	liveCells
+	liveCells,
+	random
     }
 }
 

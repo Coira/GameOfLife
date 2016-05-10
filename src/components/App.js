@@ -5,7 +5,8 @@ import Controls from './Controls';
 class App extends React.Component {
     constructor(props) {
 	super(props);
-	this.timer = null;	
+	this.timer = null;
+	this.cellClickFtn = this.cellClickFtn.bind(this);
     }
 
     startFtn() {
@@ -46,7 +47,7 @@ class App extends React.Component {
 		<Board width={this.props.width}
 		       height={this.props.height}
 		       board={this.props.board}
-		       cellClickFtn={this.cellClickFtn.bind(this)}/>
+		       cellClickFtn={this.cellClickFtn}/>
 	    </div>
 	)
     }
@@ -54,3 +55,8 @@ class App extends React.Component {
 
 export default App;
 
+/*
+<Board width={this.props.width}
+height={this.props.height}
+board={this.props.board}
+cellClickFtn={this.cellClickFtn}/>*/

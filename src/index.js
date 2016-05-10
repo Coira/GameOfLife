@@ -22,7 +22,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
 	onNewBoard: () => {
-	    dispatch(createBoardAction(6,6,[8,15,19,20,21]));
+	    //dispatch(createBoardAction(6,6,[8,15,19,20,21]));
+	    dispatch(createBoardAction(30,30,[0, 23]));
+	    //dispatch(createBoardAction(100,100,[],true));
 	},
 	onStart: () => {
 	    dispatch(startAction());
@@ -44,13 +46,12 @@ const GameOfLifeApp = connect(
     mapDispatchToProps
 )(App);
 
-
-	   
 ReactDOM.render(
     <Provider store={store}>
 	<GameOfLifeApp />
     </Provider>,
     document.getElementById('app')
+    
 )
     
     

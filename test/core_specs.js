@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {createBoard, getNeighbours} from '../src/game/board';
+import {ALIVE, DEAD, createBoard, getNeighbours} from '../src/game/board';
 import {countLive, applyRules, tick} from '../src/game/core';
 
 describe('rules logic', () => {
@@ -42,40 +42,40 @@ describe('rules logic', () => {
     // and false if the cell should end up dead
     it ('kills a live cell if it has < 2 live neighbours', () => {
 	let [cell, neighbours] = createMinimalBoard([0])  
-	expect(applyRules(cell, neighbours)).to.equal(false);
+	expect(applyRules(cell, neighbours)).to.equal(DEAD);
 
 	[cell, neighbours] = createMinimalBoard();
-	expect(applyRules(cell, neighbours)).to.equal(false);
+	expect(applyRules(cell, neighbours)).to.equal(DEAD);
     });
 
     it ('keeps alive a live cell if it has 2 or 3 live neighbours', () => {
 	// this cell is dead with 2 neighbours, should stay dead
 	let [cell, neighbours] = createMinimalBoard([3,2]);
-	expect(applyRules(cell, neighbours)).to.equal(false);
-
+	expect(applyRules(cell, neighbours)).to.equal(DEAD);
+	
 	// alive with 2 neighbours, should stay alive
 	[cell, neighbours] = createMinimalBoard([3,2,4]);
-	expect(applyRules(cell, neighbours)).to.equal(true);
+	expect(applyRules(cell, neighbours)).to.equal(ALIVE);
 
 	// alive with 3 neighbours, should stay alive
 	[cell, neighbours] = createMinimalBoard([5,4,1,8]);
-	expect(applyRules(cell, neighbours)).to.equal(true);
+	expect(applyRules(cell, neighbours)).to.equal(ALIVE);
     });
     
     it ('resurrects a dead cell if it has exactly 3 live neighbours', () => {
 	// dead with 3 neighbours, resurrected
 	let [cell, neighbours] = createMinimalBoard([7,2,6]);
-	expect(applyRules(cell, neighbours)).to.equal(true);
+	expect(applyRules(cell, neighbours)).to.equal(ALIVE);
     });
     
     it ('kills a live cell if it has > 3 live neighbours', () => {
 	// dead with > 3 neighbours, stays dead
 	let [cell, neighbours] = createMinimalBoard([2,7,1,8]);
-	expect(applyRules(cell, neighbours)).to.equal(false);
+	expect(applyRules(cell, neighbours)).to.equal(DEAD);
 	
 	// alive with > 3 neighbours, killed
 	[cell, neighbours] = createMinimalBoard([4,5,6,7,8]);
-	expect(applyRules(cell, neighbours)).to.equal(false);
+	expect(applyRules(cell, neighbours)).to.equal(DEAD);
     });
 
 
@@ -112,9 +112,12 @@ describe('game tick actions', () => {
 	for (var i = 0; i < 4; i++) {
 	    boards.push(tick(boards[i].board, 6, i));
 	}
-	
+	for (var i = 0; i < 4; i++) {
+	   // console.log(boards[i].board);
+	}
+	expect(boards[1].board).to.equal(expectedBoardStates[1]);
 	for (var i = 0; i < 5; i++) {
-	    expect(boards[i].board).to.equal(expectedBoardStates[i]);
+	    //expect(boards[i].board).to.equal(expectedBoardStates[i]);
 	}
     });
 

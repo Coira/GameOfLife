@@ -1,15 +1,16 @@
 import {createBoard, updateBoard} from '../game/board';
 import {tick} from '../game/core';
-import {Map} from 'immutable';
+import {Map, fromJS} from 'immutable';
 
 // export function createBoard(width, height, alive = []) {
 // export function tick(board, width, generation=0) {
 
-export default function reducer(state = Map(), action) {
+
+export default function reducer(state = fromJS({board: []}), action) {
     switch(action.type) {
 	case 'CREATE_BOARD':
 	    const board = createBoard(action.width, action.height,
-				      action.liveCells);
+				      action.liveCells, action.random);
 	    return Map({board: board, width:action.width, height:action.height,
 			generation: 0, running: false});
 	case 'START':
@@ -30,4 +31,3 @@ export default function reducer(state = Map(), action) {
     }
 }
 
-    

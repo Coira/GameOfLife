@@ -1,14 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { renderIntoDocument,
 	 scryRenderedDOMComponentsWithClass,
-	 scryRenderedDOMComponentsWithTag,
-	 createRenderer,
-	 Simulate} from 'react-addons-test-utils';
+	 scryRenderedDOMComponentsWithTag } from 'react-addons-test-utils';
 import App from '../src/components/App';
 import Board from '../src/components/BoardContainer';
-import Cell from '../src/components/Cell';
-import Map from 'immutable';
 import {expect} from 'chai';
 import {createBoard} from '../src/game/board';
 
