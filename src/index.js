@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
 	onNewBoard: () => {
 	    //dispatch(createBoardAction(6,6,[8,15,19,20,21]));
-	    dispatch(createBoardAction(30,30,[0, 23]));
+	    dispatch(createBoardAction(30,30,[0,9,19,29], true));
 	    //dispatch(createBoardAction(100,100,[],true));
 	},
 	onStart: () => {

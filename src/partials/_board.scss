@@ -1,28 +1,32 @@
-td {
-    margin:0px;
-    border: 1px solid white;
-    background-color: black;
-}
-
-tr {
-    margin: 0px;
-}
-
-table {
-    border-collapse:collapse;
-}
-
 .board {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     /*justify-content: flex-start;*/
     align-content: flex-start;
-    width: 10px;
-    height:100%;
     background-color: blue;
 }
 
+.large {
+    width: $smallCellSize * $largeBoardWidth;
+    height: $smallCellSize * $largeBoardHeight;
+}
+/*
+.medium {
+    width: (2 + $mediumCellSize) * $mediumBoardWidth ;
+    height:(1 + $mediumCellSize) * $mediumBoardHeight + 1;
+}
+*/
+.medium {
+    width: 300px;
+    
+}
+.small {
+    width: $largeCellSize * $smallBoardWidth;
+    height: $largeCellSize * $smallBoardHeight;
+}
+
+		       
 .row {
     display: flex;
     flex-direction: column;
@@ -30,9 +34,4 @@ table {
     height: 100%;
     width: 100%;
     /*margin: 3px;*/
-}
-
-#drawingBoard {
-    border: 1px solid black;
-    background-color: white;
 }

@@ -27,7 +27,7 @@ class App extends React.Component {
 	}
 	
     }
- 
+    
     tick() {
 	this.timer = setTimeout(function() {
 	    if (this.props.running) {
@@ -40,14 +40,19 @@ class App extends React.Component {
     render() {
 	return (
 	    <div>
-		<Controls newBoardFtn={this.props.onNewBoard}			  
-			  startFtn={this.startFtn.bind(this)}
-			  stopFtn={this.stopFtn.bind(this)}/>
+		<div className="header">Game Of Life and github link</div>
+
+		<div className="game">
+		    <Controls newBoardFtn={this.props.onNewBoard}			  
+			      startFtn={this.startFtn.bind(this)}
+			      stopFtn={this.stopFtn.bind(this)}/>
+		    
+		    <Board  width={this.props.width}
+			   height={this.props.height}
+			   board={this.props.board}
+			   cellClickFtn={this.cellClickFtn}/>
+		</div>
 		
-		<Board width={this.props.width}
-		       height={this.props.height}
-		       board={this.props.board}
-		       cellClickFtn={this.cellClickFtn}/>
 	    </div>
 	)
     }
@@ -56,7 +61,7 @@ class App extends React.Component {
 export default App;
 
 /*
-<Board width={this.props.width}
-height={this.props.height}
-board={this.props.board}
-cellClickFtn={this.cellClickFtn}/>*/
+   <Board width={this.props.width}
+   height={this.props.height}
+   board={this.props.board}
+   cellClickFtn={this.cellClickFtn}/>*/

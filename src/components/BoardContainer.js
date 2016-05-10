@@ -1,5 +1,6 @@
 import React from 'react';
 import Cell from './cell';
+import classnames from 'classnames';
 
 const boardDefault = [];
 
@@ -12,9 +13,10 @@ class Board extends React.Component {
     render() {
 	// prevent trying to map over 'undefined'
 	const board = this.props.board || boardDefault;
+	
 
 	return (
-	    <div className="board">
+	    <div className={classnames("board", "medium")}>
 		{
 		    board.map((cell, i) => (
 			<Cell className="cell"
