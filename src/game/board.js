@@ -13,7 +13,6 @@ export function createBoard(width, height, alive = [], random=false) {
     
     let board = [];
     for (let i = 0; i < boardSize; i++) {
-	//board.push({alive: false, pos:i});
 	board.push(DEAD)
     }
     
@@ -28,7 +27,6 @@ export function createBoard(width, height, alive = [], random=false) {
 
     alive.forEach((i) => {
 	if (i >= 0 && i < boardSize) {
-	    //board[i].alive = true;
 	    board[i] = ALIVE;
 	}
     });

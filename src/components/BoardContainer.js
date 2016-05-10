@@ -10,6 +10,7 @@ class Board extends React.Component {
     }
 
     render() {
+	// prevent trying to map over 'undefined'
 	const board = this.props.board || boardDefault;
 
 	return (
