@@ -2,9 +2,6 @@ import {createBoard, updateBoard} from '../game/board';
 import {tick} from '../game/core';
 import {Map, fromJS} from 'immutable';
 
-// export function createBoard(width, height, alive = []) {
-// export function tick(board, width, generation=0) {
-
 
 export default function reducer(state = fromJS({board: []}), action) {
     switch(action.type) {

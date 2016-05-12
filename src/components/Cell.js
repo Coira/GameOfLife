@@ -8,7 +8,8 @@ class Cell extends React.Component {
     }
     
    shouldComponentUpdate(nextProps) {
-	return nextProps.cell != this.props.cell;
+       return nextProps.cell != this.props.cell ||
+	      nextProps.size != this.props.size;
    }
     
     render() {
@@ -16,7 +17,8 @@ class Cell extends React.Component {
 	const status = this.props.cell;
 	
 	return (
-	    <div className={classnames("cell", {"alive": status===ALIVE})}
+	    <div className={classnames("cell", {"alive": status===ALIVE},
+				       this.props.size)}
 		 onClick={() => this.props.cellClickFtn(id)}>
 	    </div> );
     }

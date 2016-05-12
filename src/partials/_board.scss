@@ -2,36 +2,8 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    /*justify-content: flex-start;*/
+    flex: 0 0 auto;
     align-content: flex-start;
     background-color: blue;
-}
-
-.large {
-    width: $smallCellSize * $largeBoardWidth;
-    height: $smallCellSize * $largeBoardHeight;
-}
-/*
-.medium {
-    width: (2 + $mediumCellSize) * $mediumBoardWidth ;
-    height:(1 + $mediumCellSize) * $mediumBoardHeight + 1;
-}
-*/
-.medium {
-    width: 300px;
-    
-}
-.small {
-    width: $largeCellSize * $smallBoardWidth;
-    height: $largeCellSize * $smallBoardHeight;
-}
-
-		       
-.row {
-    display: flex;
-    flex-direction: column;
-    background-color: red;
-    height: 100%;
-    width: 100%;
-    /*margin: 3px;*/
+    width: 800px;
 }

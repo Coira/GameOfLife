@@ -6,6 +6,8 @@ class App extends React.Component {
     constructor(props) {
 	super(props);
 	this.timer = null;
+	this.startFtn = this.startFtn.bind(this);
+	this.stopFtn = this.stopFtn.bind(this);
 	this.cellClickFtn = this.cellClickFtn.bind(this);
     }
 
@@ -44,8 +46,8 @@ class App extends React.Component {
 
 		<div className="game">
 		    <Controls newBoardFtn={this.props.onNewBoard}			  
-			      startFtn={this.startFtn.bind(this)}
-			      stopFtn={this.stopFtn.bind(this)}/>
+			      startFtn={this.startFtn}
+			      stopFtn={this.stopFtn}/>
 		    
 		    <Board  width={this.props.width}
 			   height={this.props.height}
