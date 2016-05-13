@@ -1,5 +1,6 @@
 import React from 'react';
 import Cell from './cell';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import {SMALL_WIDTH as SW, MEDIUM_WIDTH as MW,
 	LARGE_WIDTH as LW} from '../index';
@@ -10,6 +11,8 @@ class Board extends React.Component {
     
     constructor(props) {
 	super(props);
+	this.shouldComponentUpdate =
+	PureRenderMixin.shouldComponentUpdate.bind(this);
     }
 
     render() {
@@ -20,7 +23,7 @@ class Board extends React.Component {
 	// cell size. A small board will have a larger cell.
 	if (this.props.width === SW) size = "small";
 	else if (this.props.width === MW) size = "medium";
-	else size = "large";
+	else if (this.props.width === LW) size = "large";
 
 	return (
 	    <div className="board">

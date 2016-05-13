@@ -1,14 +1,18 @@
 import React from 'react';
 import Board from './BoardContainer';
 import Controls from './Controls';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 class App extends React.Component {
     constructor(props) {
 	super(props);
+	this.shouldComponentUpdate =
+	PureRenderMixin.shouldComponentUpdate.bind(this);
 	this.timer = null;
 	this.startFtn = this.startFtn.bind(this);
 	this.stopFtn = this.stopFtn.bind(this);
 	this.cellClickFtn = this.cellClickFtn.bind(this);
+	this.tick = this.tick.bind(this);
     }
 
     startFtn() {
@@ -27,14 +31,14 @@ class App extends React.Component {
 	if (!this.props.running) {
 	    this.props.onCellClick(cell);
 	}
-	
     }
     
     tick() {
+	
 	this.timer = setTimeout(function() {
 	    if (this.props.running) {
 		this.props.onTick();
-		requestAnimationFrame(this.tick.bind(this));
+		requestAnimationFrame(this.tick);
 	    }
 	}.bind(this), 100);
     }

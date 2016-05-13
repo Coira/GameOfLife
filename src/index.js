@@ -1,4 +1,5 @@
 import React from 'react';
+
 import ReactDOM from 'react-dom';
 import { connect, Provider } from 'react-redux';
 import store from './redux/store';
@@ -8,12 +9,18 @@ import {createBoardAction, tickAction,
 	toggleCellStatusAction} from './redux/actions';
 import './style.scss';
 
-export const SMALL_WIDTH = 30;
+
+
+//if(process.env.NODE_ENV !== 'production') {
+//    React.Perf = require('react-addons-perf');
+//}
+
+export const SMALL_WIDTH = 50;
 export const SMALL_HEIGHT = 30;
-export const MEDIUM_WIDTH = 60;
-export const MEDIUM_HEIGHT = 60;
+export const MEDIUM_WIDTH = 70;
+export const MEDIUM_HEIGHT = 50;
 export const LARGE_WIDTH = 100;
-export const LARGE_HEIGHT = 100;
+export const LARGE_HEIGHT = 80;
 
 
 const mapStateToProps = (state) => {
