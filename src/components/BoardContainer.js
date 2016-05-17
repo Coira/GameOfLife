@@ -3,7 +3,7 @@ import Cell from './cell';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import {SMALL_WIDTH as SW, MEDIUM_WIDTH as MW,
-	LARGE_WIDTH as LW} from '../index';
+	LARGE_WIDTH as LW} from './App';
     
 const boardDefault = [];
 
@@ -18,7 +18,7 @@ class Board extends React.Component {
     render() {
 	// prevent trying to map over 'undefined'
 	const board = this.props.board || boardDefault;
-	let size = null;
+	let size = "small";
 
 	// cell size. A small board will have a larger cell.
 	if (this.props.width === SW) size = "small";

@@ -26,6 +26,18 @@ export function stopAction() {
     }
 }
 
+export function clearAction() {
+    return {
+	type: "CLEAR"
+    }
+}
+
+export function randomiseAction() {
+    return {
+	type: "RANDOMISE"
+    }
+}
+
 export function toggleCellStatusAction(cell) {
     return {
 	type: "TOGGLE_CELL_STATUS",

@@ -1,30 +1,28 @@
 import React from 'react';
 
-import {SMALL_WIDTH as SW, SMALL_HEIGHT as SH,
-	MEDIUM_WIDTH as MW, MEDIUM_HEIGHT as MH,
-	LARGE_WIDTH as LW, LARGE_HEIGHT as LH} from '../index';
-
-const Controls = ({newBoardFtn, startFtn, stopFtn}) => (
+const Controls = ({smallBoardFtn, mediumBoardFtn, largeBoardFtn,
+		   startFtn, stopFtn, clearFtn, randomiseFtn}) => (
+		       
     <div className="controls">
 	<div className="board_op sections">
 	    Controls
 	    <div className="buttons">
 		<button onClick={startFtn}>Start</button>
 		<button onClick={stopFtn}>Stop</button>
-		<button>Clear</button>
-		<button>Randomise</button>
+		<button onClick={clearFtn}>Clear</button>
+		<button onClick={randomiseFtn}>Randomise</button>
 	    </div>
 	</div>
 	<div className="new_board sections">
 	    New Board
 	    <div className="buttons">
-		<button onClick={() => newBoardFtn(SW,SH,[0,10,20,30],true)}>
+		<button onClick={smallBoardFtn}>
 		    Small
 		</button>
-		<button  onClick={() => newBoardFtn(MW,MH,[0,10,20,30,40,50, 60],true)}>
+		<button  onClick={mediumBoardFtn}>
 		    Medium
 		</button>
-		<button  onClick={() => newBoardFtn(LW,LH,[0,10,20,30,40,50,60,70,80,90,100],true)}>
+		<button  onClick={largeBoardFtn}>
 		    Large
 		</button>
 	    </div>

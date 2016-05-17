@@ -1,4 +1,4 @@
-import {List, fromJS} from 'immutable';
+import {List, Repeat, fromJS} from 'immutable';
 
 let cells = {};
 
@@ -17,10 +17,10 @@ export function createBoard(width, height, alive = [], random=false) {
     }
     
     if (random) {
-	alive = [];
+	//alive = [];
 	for (let i = 0; i < boardSize; i++) {
 	    if (Math.random() >= 0.5) {
-		alive.push(i);
+		board[i] = ALIVE;
 	    }
 	}
     }
@@ -30,7 +30,8 @@ export function createBoard(width, height, alive = [], random=false) {
 	    board[i] = ALIVE;
 	}
     });
-
+    
+    
     let immutableBoard = fromJS(board);
     immutableBoard.setSize(boardSize);
     
@@ -54,6 +55,22 @@ export function updateBoard(board, changedCells = [], agedCells = []) {
 
     return board;
     
+}
+
+
+export function clearBoard(board) {
+    return board.map(() => (DEAD));
+}
+
+export function randomiseBoard(board) {
+    return board.map(() => {
+	if (Math.random() >= 0.5) {
+	    return ALIVE;
+	}
+	else {
+	    return DEAD;
+	}
+    });
 }
 
 export function getNorthNeighbour(board, cellPos, width) {

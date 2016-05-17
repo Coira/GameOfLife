@@ -1,26 +1,17 @@
 import React from 'react';
-
 import ReactDOM from 'react-dom';
 import { connect, Provider } from 'react-redux';
 import store from './redux/store';
+
 import App from './components/App';
-import {createBoardAction, tickAction,
-	startAction, stopAction,
+import {createBoardAction, tickAction, randomiseAction,
+	startAction, stopAction, clearAction, 
 	toggleCellStatusAction} from './redux/actions';
+
+import {SMALL_WIDTH as SW, MEDIUM_WIDTH as MW,
+	LARGE_WIDTH as LW} from './components/App';
+
 import './style.scss';
-
-
-
-//if(process.env.NODE_ENV !== 'production') {
-//    React.Perf = require('react-addons-perf');
-//}
-
-export const SMALL_WIDTH = 50;
-export const SMALL_HEIGHT = 30;
-export const MEDIUM_WIDTH = 70;
-export const MEDIUM_HEIGHT = 50;
-export const LARGE_WIDTH = 100;
-export const LARGE_HEIGHT = 80;
 
 
 const mapStateToProps = (state) => {
@@ -42,12 +33,27 @@ const mapDispatchToProps = (dispatch) => {
 	    //dispatch(createBoardAction(30,30,[],true));
 	    dispatch(createBoardAction(w,h,living,randomise));
 	},
+	onSmallBoard: () => {
+	    dispatch(createBoardAction(SW, SH, [], true));
+	},
+	onMediumBoard: () => {
+	    dispatch(createBoardAction(MW, MH, [], true));
+	},
+	onLargeBoard: () => {
+	    dispatch(createBoardAction(LW, LH, [], true));
+	},
 	onStart: () => {
 	    dispatch(startAction());
 	},
 	onStop: () => {
 	    dispatch(stopAction());
 	},
+	onRandomise: () => {
+	    dispatch(randomiseAction());
+	},
+	onClear: () => {
+	    dispatch(clearAction());
+	},    
 	onTick: () => {
 	    dispatch(tickAction());
 	},
@@ -57,7 +63,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-const GameOfLifeApp = connect(
+export const GameOfLifeApp = connect(
     mapStateToProps,
     mapDispatchToProps
 )(App);

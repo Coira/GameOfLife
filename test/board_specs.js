@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {ALIVE, DEAD, AGED} from '../src/game/board';
-import {createBoard, updateBoard, getNorthNeighbour,
-	getSouthNeighbour, getWestNeighbour,
+import {createBoard, updateBoard, clearBoard, randomiseBoard,
+	getNorthNeighbour, getSouthNeighbour, getWestNeighbour,
 	getEastNeighbour, getNeighbours} from '../src/game/board';
 import {getNorthWestNeighbour as getNW_Neighbour,
 	getSouthWestNeighbour as getSW_Neighbour,
@@ -154,4 +154,16 @@ describe('board logic', () => {
 	});
 	
     });
+
+    describe ('clears the board', () => {
+	// random alive and dead cells
+	const board = createBoard(50, 10, [], true);
+
+	it ('clears the board', () => {
+	    const clearedBoard = clearBoard(board);
+	    expect('cleardBoard'.includes(ALIVE)).to.equal(false);
+	});
+    });
+    
+	    
 });

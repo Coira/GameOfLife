@@ -3,6 +3,14 @@ import Board from './BoardContainer';
 import Controls from './Controls';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
+// default Board sizes
+export const SMALL_WIDTH = 50;
+export const SMALL_HEIGHT = 30;
+export const MEDIUM_WIDTH = 70;
+export const MEDIUM_HEIGHT = 50;
+export const LARGE_WIDTH = 100;
+export const LARGE_HEIGHT = 80;
+
 class App extends React.Component {
     constructor(props) {
 	super(props);
@@ -16,6 +24,7 @@ class App extends React.Component {
     }
 
     startFtn() {
+	console.log("started ", this.props.running);
 	if (!this.props.running) {
 	    this.props.onStart();
 	    this.tick();
@@ -49,25 +58,31 @@ class App extends React.Component {
 		<div className="header">Game Of Life and github link</div>
 
 		<div className="game">
-		    <Controls newBoardFtn={this.props.onNewBoard}			  
+		    <Controls smallBoardFtn={this.props.onSmallBoard}
+			      mediumBoardFtn={this.props.onMediumBoard}
+			      largeBoardFtn={this.props.onLargeBoard}
 			      startFtn={this.startFtn}
-			      stopFtn={this.stopFtn}/>
+			      stopFtn={this.stopFtn}
+			      clearFtn={this.props.onClear}
+			      randomiseFtn={this.props.onRandomise}/>
 		    
 		    <Board  width={this.props.width}
-			   height={this.props.height}
-			   board={this.props.board}
-			   cellClickFtn={this.cellClickFtn}/>
+			    height={this.props.height}
+			    board={this.props.board}
+			    cellClickFtn={this.cellClickFtn}/>
 		</div>
 		
 	    </div>
 	)
     }
+
 }
 
 export default App;
 
 /*
-   <Board width={this.props.width}
-   height={this.props.height}
-   board={this.props.board}
-   cellClickFtn={this.cellClickFtn}/>*/
+<Board width={this.props.width}
+       height={this.props.height}
+       board={this.props.board}
+       cellClickFtn={this.cellClickFtn}/>
+*/
