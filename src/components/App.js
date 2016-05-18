@@ -14,11 +14,18 @@ export const LARGE_HEIGHT = 80;
 class App extends React.Component {
     constructor(props) {
 	super(props);
+	
 	this.shouldComponentUpdate =
 	PureRenderMixin.shouldComponentUpdate.bind(this);
+
+	this.actions = this.props.actions || [];
+
 	this.timer = null;
 	this.startFtn = this.startFtn.bind(this);
 	this.stopFtn = this.stopFtn.bind(this);
+	this.smallBoardFtn = this.smallBoardFtn.bind(this);
+	this.mediumBoardFtn = this.mediumBoardFtn.bind(this);
+	this.largeBoardFtn = this.largeBoardFtn.bind(this);
 	this.cellClickFtn = this.cellClickFtn.bind(this);
 	this.tick = this.tick.bind(this);
     }
@@ -26,27 +33,38 @@ class App extends React.Component {
     startFtn() {
 	console.log("started ", this.props.running);
 	if (!this.props.running) {
-	    this.props.onStart();
+	    this.actions.start();
 	    this.tick();
 	}
     }
 
     stopFtn() {
-	this.props.onStop();
+	this.actions.stop();
 	clearTimeout(this.timer);
     }
 
+    smallBoardFtn() {
+	this.actions.createBoard(SMALL_WIDTH, SMALL_HEIGHT, [], true);
+    }
+
+    mediumBoardFtn() {
+	this.actions.createBoard(MEDIUM_WIDTH, MEDIUM_HEIGHT, [], true);
+    }
+
+    largeBoardFtn() {
+	this.actions.createBoard(LARGE_WIDTH, LARGE_HEIGHT, [], true);
+    }
+    
     cellClickFtn(cell) {
 	if (!this.props.running) {
-	    this.props.onCellClick(cell);
+	    this.actions.toggleCellStatus(cell);
 	}
     }
     
     tick() {
-	
 	this.timer = setTimeout(function() {
 	    if (this.props.running) {
-		this.props.onTick();
+		this.actions.tick();
 		requestAnimationFrame(this.tick);
 	    }
 	}.bind(this), 100);
@@ -58,13 +76,13 @@ class App extends React.Component {
 		<div className="header">Game Of Life and github link</div>
 
 		<div className="game">
-		    <Controls smallBoardFtn={this.props.onSmallBoard}
-			      mediumBoardFtn={this.props.onMediumBoard}
-			      largeBoardFtn={this.props.onLargeBoard}
+		    <Controls smallBoardFtn={this.smallBoardFtn}
+			      mediumBoardFtn={this.mediumBoardFtn}
+			      largeBoardFtn={this.largeBoardFtn}
 			      startFtn={this.startFtn}
 			      stopFtn={this.stopFtn}
-			      clearFtn={this.props.onClear}
-			      randomiseFtn={this.props.onRandomise}/>
+			      clearFtn={this.actions.clear}
+			      randomiseFtn={this.actions.randomise}/>
 		    
 		    <Board  width={this.props.width}
 			    height={this.props.height}
@@ -86,3 +104,4 @@ export default App;
        board={this.props.board}
        cellClickFtn={this.cellClickFtn}/>
 */
+

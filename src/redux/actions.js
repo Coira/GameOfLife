@@ -1,4 +1,4 @@
-export function createBoardAction(width, height, liveCells, random) {
+export function createBoard(width, height, liveCells, random) {
     return {
 	type: "CREATE_BOARD",
 	width,
@@ -8,37 +8,37 @@ export function createBoardAction(width, height, liveCells, random) {
     }
 }
 
-export function tickAction() {
+export function tick() {
     return {
 	type: "TICK"
     }
 }
 
-export function startAction() {
+export function start() {
     return {
 	type: "START"
     }
 }
 
-export function stopAction() {
+export function stop() {
     return {
 	type: "STOP"
     }
 }
 
-export function clearAction() {
+export function clear() {
     return {
 	type: "CLEAR"
     }
 }
 
-export function randomiseAction() {
+export function randomise() {
     return {
 	type: "RANDOMISE"
     }
 }
 
-export function toggleCellStatusAction(cell) {
+export function toggleCellStatus(cell) {
     return {
 	type: "TOGGLE_CELL_STATUS",
 	cell
