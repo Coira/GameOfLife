@@ -72,7 +72,7 @@ class App extends React.Component {
 
     render() {
 	return (
-	    <div>
+	    <div className="app_cont">
 		<div className="header">Game Of Life and github link</div>
 
 		<div className="game">

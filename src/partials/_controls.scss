@@ -1,5 +1,5 @@
 .controls {
-    width: 400px;
+    width: 350px;
     background-color: yellow;
     margin-right: 30px;
 }
@@ -7,7 +7,7 @@
 .sections {
     display: flex;
     flex-direction: column;
-    margin: 40px;
+    margin:30px;
     width: 100%;
     font-size: 30px;
 
@@ -22,10 +22,13 @@
 
 }
 
-@media (orientation:portrait) {
+@media (max-width: 1200px) {
     .controls {
-	width: 100%;
-	height: auto;
+	width: 800px;
+	height: 150px;
+	min-height: 150px;
+	max-height: 150px;
+	margin: 20px 0px 20px 0px;;
     }
     .sections {
 	display: flex;

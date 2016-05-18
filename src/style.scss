@@ -6,32 +6,48 @@
 
 body {
     background-color: gray;
-    display: flex;
-    flex-direction: column;
     height: 100%;
     width: 100%;
     margin: 0px;
 }
 
+.app_cont {
+    background-color: purple;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
 .header {
     height: 80px;
-    background-color: orange;
+    background-color: green;
     margin-bottom: 10px;
+    text-align: center;
+    width: 100%;
 }
 
 .game {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     justify-content: center;
-    
 
     background-color: red;
-    top: 90px;
-    position: absolute;
-    bottom: 0;
+
     width: 100%;
-    /*flex: 1;*/
+    height: 100%;
+    padding-bottom: 10px;
+}
+
+@media (max-width: 1200px) {
+
+    .game {
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	top: 0px;
+	height: 100%
+    }
 
 }
+
 
