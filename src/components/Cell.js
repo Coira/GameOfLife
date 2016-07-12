@@ -6,12 +6,7 @@ class Cell extends React.Component {
     constructor(props) {
 	super(props);
     }
-    
-   shouldComponentUpdate(nextProps) {
-       return nextProps.cell != this.props.cell ||
-	      nextProps.size != this.props.size;
-   }
-    
+
     render() {
 	const id = this.props.id;
 	const status = this.props.cell;

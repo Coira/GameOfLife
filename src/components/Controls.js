@@ -27,17 +27,6 @@ const Controls = ({smallBoardFtn, mediumBoardFtn, largeBoardFtn,
 		</button>
 	    </div>
 	</div>
-	<div className="patterns sections">
-	    Patterns
-	    <div>
-		<div className="buttons">
-		    <button>Glider</button>
-		    <button>Pattern1</button>
-		    <button>Pattern2</button>
-		    <button>Pattern3</button>
-		</div>
-	    </div>
-	</div>
     </div>
 );
 

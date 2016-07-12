@@ -73,7 +73,7 @@ class App extends React.Component {
     render() {
 	return (
 	    <div className="app_cont">
-		<div className="header">Game Of Life and github link</div>
+		<div className="header">Conway's Game Of Life</div>
 
 		<div className="game">
 		    <Controls smallBoardFtn={this.smallBoardFtn}

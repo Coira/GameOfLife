@@ -5,14 +5,14 @@
 
 
 body {
-    background-color: gray;
+    background-color: #4e4e4e;
     height: 100%;
     width: 100%;
     margin: 0px;
 }
 
 .app_cont {
-    background-color: purple;
+    background-color: #ae00ae;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -20,10 +20,16 @@ body {
 
 .header {
     height: 80px;
-    background-color: green;
+    background-color: #343c34;
     margin-bottom: 10px;
-    text-align: center;
+    text-align: left;
     width: 100%;
+    color: white;
+    font-size: 45px;
+    font-family: 'Droid Serif', serif;
+    padding-left: 20px;
+    padding-top: 10px;
+    
 }
 
 .game {
@@ -31,7 +37,7 @@ body {
     flex-direction: row;
     justify-content: center;
 
-    background-color: red;
+    background-color: #575757;
 
     width: 100%;
     height: 100%;
