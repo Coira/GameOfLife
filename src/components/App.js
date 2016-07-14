@@ -30,6 +30,13 @@ class App extends React.Component {
 	this.tick = this.tick.bind(this);
     }
 
+
+    // start the game as soon as the component is ready
+    componentDidMount() {
+	this.smallBoardFtn();
+	this.startFtn();
+    }
+    
     // attached to Start button. Starts the board running.
     startFtn() {
 	if (!this.props.running) {
