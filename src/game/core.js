@@ -1,5 +1,8 @@
+/* core game functions */
+
 import {ALIVE, DEAD, updateBoard, getNeighbours} from '../game/board';
 
+// returns the number of alive cells in an array
 export function countLive(cells) {
     return cells.count(v => v === ALIVE);
 }
@@ -21,7 +24,6 @@ export function applyRules(cell, neighbours) {
     }
 }
 
-
 export function tick(board, width, generation=0) {
     
     let changeCells = [];
@@ -36,7 +38,7 @@ export function tick(board, width, generation=0) {
 	    changeCells.push(i);
 	}
     }
-    //console.log(changeCells);
+    
     // update the board with all the cells that have changed state
     return {board: updateBoard(board, changeCells),
 	    generation: generation+1};

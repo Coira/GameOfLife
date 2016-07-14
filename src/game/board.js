@@ -1,4 +1,4 @@
-import {List, Repeat, fromJS} from 'immutable';
+import {List, fromJS} from 'immutable';
 
 let cells = {};
 
@@ -15,9 +15,9 @@ export function createBoard(width, height, alive = [], random=false) {
     for (let i = 0; i < boardSize; i++) {
 	board.push(DEAD)
     }
-    
+
+    // randomly set cells as alive or dead
     if (random) {
-	//alive = [];
 	for (let i = 0; i < boardSize; i++) {
 	    if (Math.random() >= 0.5) {
 		board[i] = ALIVE;
@@ -38,6 +38,7 @@ export function createBoard(width, height, alive = [], random=false) {
     return immutableBoard;
 }
 
+// what's the next state?
 function cycle(state) {
     switch(state) {
 	case DEAD: return ALIVE;
@@ -62,6 +63,7 @@ export function clearBoard(board) {
     return board.map(() => (DEAD));
 }
 
+// randomly set cells as alive or dead
 export function randomiseBoard(board) {
     return board.map(() => {
 	if (Math.random() >= 0.5) {
@@ -114,6 +116,7 @@ export function getSouthEastNeighbour(board, cellPos, width) {
     return getEastNeighbour(board, south, width);
 }
 
+// get an array of a cell's neighbours
 export function getNeighbours(board, cellPos, width) {
 
     const pos = cellPos;

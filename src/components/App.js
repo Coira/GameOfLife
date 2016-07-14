@@ -30,37 +30,43 @@ class App extends React.Component {
 	this.tick = this.tick.bind(this);
     }
 
+    // attached to Start button. Starts the board running.
     startFtn() {
-	console.log("started ", this.props.running);
 	if (!this.props.running) {
 	    this.actions.start();
 	    this.tick();
 	}
     }
 
+    // attached to Stop button. Pauses/stops the board.
     stopFtn() {
 	this.actions.stop();
 	clearTimeout(this.timer);
     }
 
+    // create a small board
     smallBoardFtn() {
 	this.actions.createBoard(SMALL_WIDTH, SMALL_HEIGHT, [], true);
     }
 
+    // create a medium board
     mediumBoardFtn() {
 	this.actions.createBoard(MEDIUM_WIDTH, MEDIUM_HEIGHT, [], true);
     }
 
+    // create a large board
     largeBoardFtn() {
 	this.actions.createBoard(LARGE_WIDTH, LARGE_HEIGHT, [], true);
     }
-    
+
+    // user can click on a cell. toggles it status betweel alive/dead
     cellClickFtn(cell) {
 	if (!this.props.running) {
 	    this.actions.toggleCellStatus(cell);
 	}
     }
-    
+
+    // game tick
     tick() {
 	this.timer = setTimeout(function() {
 	    if (this.props.running) {
@@ -83,11 +89,14 @@ class App extends React.Component {
 			      stopFtn={this.stopFtn}
 			      clearFtn={this.actions.clear}
 			      randomiseFtn={this.actions.randomise}/>
-		    
-		    <Board  width={this.props.width}
-			    height={this.props.height}
-			    board={this.props.board}
-			    cellClickFtn={this.cellClickFtn}/>
+
+		    <div className="board_column">
+			<div className="generation">Generation: {this.props.generation}</div>
+			<Board  width={this.props.width}
+				height={this.props.height}
+				board={this.props.board}
+				cellClickFtn={this.cellClickFtn}/>
+		    </div>
 
 		    <div className="info_section_small">
 			See the code on my <a href="https://github.com/Coira/GameOfLife" target="_blank">Github repo</a>.

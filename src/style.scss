@@ -44,6 +44,19 @@ body {
     padding-bottom: 10px;
 }
 
+.board_column {
+    display: flex;
+    flex-direction: column;
+}
+
+.generation {
+    font-family: Lora, serif;
+    font-size: 20px;
+    margin-top: 10px;
+    color: #dbdbdb;
+    align-self: center;
+}
+
 .info_section_small {
     display: none;
     margin-top: 20px;
