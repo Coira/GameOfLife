@@ -7,14 +7,28 @@
 .sections {
     display: flex;
     flex-direction: column;
-    margin:30px;
+    margin:40px;
     margin-left: 20px;
     width: 100%;
     font-size: 30px;
-
+    font-family: Lora, serif;
+    
     .buttons {
 	display: flex;
 	flex-direction: row;
+    }
+}
+
+.info_section {
+    display: inline-block;
+    font-size: 16px;
+    width: 300px;
+    margin-top: 30px;
+    border-top: 3px solid #164563;
+    padding-top: 8px;
+
+    a:hover, a:visited, a:link, a:active {
+        text-decoration: none;
     }
 }
         
@@ -45,19 +59,30 @@ button:active {
 @media (max-width: 1200px) {
     .controls {
 	width: 800px;
-	height: 150px;
-	min-height: 150px;
-	max-height: 150px;
-	margin: 20px 0px 20px 0px;;
+	height: 55px;
+	min-height: 55px;
+	max-height: 55px;
+	margin: 20px 0px 10px 0px;
+	display: flex;
+	flex-direction: row;
     }
     .sections {
 	display: flex;
 	flex-direction: row;
-	margin: 0px;
-	margin-bottom: 20px;
-	width: 100%;
+	margin: 10px;
 	font-size: 20px;
-	background-color: orange;
+	align-items: flex-end;
+	justify-content: flex-end;
+	margin-right: 30px;
     }
+
+    .buttons {
+	margin-left: 10px;
+    }
+				  
+    .info_section {
+	display: none;
+    }
+
 }
 

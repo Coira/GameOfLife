@@ -27,6 +27,10 @@ const Controls = ({smallBoardFtn, mediumBoardFtn, largeBoardFtn,
 		</button>
 	    </div>
 	</div>
+	<div className="info_section sections">
+	    See the code on my <a href="https://github.com/Coira/GameOfLife" target="_blank">Github repo</a>.
+	</div>
+	    
     </div>
 );
 

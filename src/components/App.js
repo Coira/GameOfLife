@@ -88,7 +88,13 @@ class App extends React.Component {
 			    height={this.props.height}
 			    board={this.props.board}
 			    cellClickFtn={this.cellClickFtn}/>
+
+		    <div className="info_section_small">
+			See the code on my <a href="https://github.com/Coira/GameOfLife" target="_blank">Github repo</a>.
+		    </div>
 		</div>
+
+
 		
 	    </div>
 	)
